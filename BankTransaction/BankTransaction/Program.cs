@@ -1,12 +1,21 @@
 using BankTransaction.Models;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+
+
 //DI for DbContext
-builder.Services.AddDbContext<TransactionDbContext>(); 
+builder.Services.AddDbContext<TransactionDbContext>(options =>
+{
+    var connectionStr = builder.Configuration.GetConnectionString("DevConnectionString");
+    options.UseNpgsql(connectionStr);
+});
+
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 var app = builder.Build();
 
@@ -23,6 +32,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Transactions}/{action=Index}/{id?}");
 
 app.Run();
