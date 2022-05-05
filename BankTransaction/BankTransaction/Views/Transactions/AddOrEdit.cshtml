@@ -9,6 +9,8 @@
 	<div class="col-md-6 offset-md-3">
 		<h1>Transaction</h1>
 		<form asp-action="AddOrEdit" autocomplete="off">
+			<input type="hidden" asp-for="TransactionId"/>
+			<input type="hidden" asp-for="Date"/>
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<div class="form-group">
 				<label asp-for="AccountNumber" class="control-label"></label>
