@@ -1,7 +1,12 @@
+using BankTransaction.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//DI for DbContext
+builder.Services.AddDbContext<TransactionDbContext>(); 
 
 var app = builder.Build();
 
